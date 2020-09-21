@@ -1,0 +1,1916 @@
+{
+	"info": {
+		"_postman_id": "c0eaa8fe-7058-4745-a40a-549c347fa896",
+		"name": "Commerce API Shopper Demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Shopper Demo",
+			"item": [
+				{
+					"name": "00a. Shopper Customer - Authorize guest",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6740bc19-f299-4053-a7c8-01c4d295f64b",
+								"exec": [
+									"var bearer = postman.getResponseHeader(\"Authorization\");",
+									"pm.environment.set(\"bearer\", bearer.slice(7));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"type\": \"guest\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/customer/shopper-customers/v1/organizations/{{organizationId}}/customers/actions/login?siteId={{site_id}}&clientId={{clientId}}",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"customer",
+								"shopper-customers",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"customers",
+								"actions",
+								"login"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{site_id}}"
+								},
+								{
+									"key": "clientId",
+									"value": "{{clientId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "00b. Shopper Customer - Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2abd2615-6659-404c-aacc-0f1e4a42af2c",
+								"exec": [
+									"const responseJSON = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"customerId\",responseJSON.customerId);",
+									"var bearer = postman.getResponseHeader(\"Authorization\");",
+									"pm.environment.set(\"bearer\", bearer.slice(7));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{shopper_pass}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{shopper_login}}",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"type\": \"credentials\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/customer/shopper-customers/v1/organizations/{{organizationId}}/customers/actions/login?siteId={{site_id}}&clientId={{clientId}}",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"customer",
+								"shopper-customers",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"customers",
+								"actions",
+								"login"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{site_id}}"
+								},
+								{
+									"key": "clientId",
+									"value": "{{clientId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "01. Shopper Customer - Get Customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2abd2615-6659-404c-aacc-0f1e4a42af2c",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/customer/shopper-customers/v1/organizations/{{organizationId}}/customers/{{customerId}}?siteId={{site_id}}",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"customer",
+								"shopper-customers",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"customers",
+								"{{customerId}}"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{site_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "02. Shopper Customer - Get Cust Product Lists",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2abd2615-6659-404c-aacc-0f1e4a42af2c",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/customer/shopper-customers/v1/organizations/{{organizationId}}/customers/{{customerId}}/product-lists?siteId={{site_id}}",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"customer",
+								"shopper-customers",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"customers",
+								"{{customerId}}",
+								"product-lists"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{site_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "03. Shopper Customer - Search Product Lists",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2abd2615-6659-404c-aacc-0f1e4a42af2c",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/customer/shopper-customers/v1/organizations/{{organizationId}}/product-lists?siteId={{site_id}}&firstName=emma&lastName=berry&email=emma.dwre@gmail.com",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"customer",
+								"shopper-customers",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"product-lists"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{site_id}}"
+								},
+								{
+									"key": "firstName",
+									"value": "emma"
+								},
+								{
+									"key": "lastName",
+									"value": "berry"
+								},
+								{
+									"key": "email",
+									"value": "emma.dwre@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "04. Shopper Search - Search Suggestions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/search/shopper-search/v1/organizations/{{organizationId}}/search-suggestions?siteId={{site_id}}&q=rob&locale={{locale}}",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"search",
+								"shopper-search",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"search-suggestions"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{site_id}}"
+								},
+								{
+									"key": "q",
+									"value": "rob"
+								},
+								{
+									"key": "locale",
+									"value": "{{locale}}"
+								},
+								{
+									"key": "currency",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "05. Shopper Search - Product Search",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f66dfd67-55d1-40dc-b02a-f420674f8e43",
+								"exec": [
+									"var hitsArray = pm.response.json().hits;",
+									"var firstHit = hitsArray[0];",
+									"pm.environment.set(\"product_id\", firstHit.representedProduct.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/search/shopper-search/v1/organizations/{{organizationId}}/product-search?siteId={{site_id}}&q=robe&sort=most-popular&locale={{locale}}",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"search",
+								"shopper-search",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"product-search"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{site_id}}"
+								},
+								{
+									"key": "q",
+									"value": "robe"
+								},
+								{
+									"key": "sort",
+									"value": "most-popular"
+								},
+								{
+									"key": "locale",
+									"value": "{{locale}}"
+								},
+								{
+									"key": "offset",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "refine",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "currency",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "06a. Shopper Products - Get Categories",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/product/shopper-products/v1/organizations/{{organizationId}}/categories?siteId={{site_id}}&ids=womens-jewelry-necklaces,womens-jewelry-bracelets",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"product",
+								"shopper-products",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"categories"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{site_id}}"
+								},
+								{
+									"key": "ids",
+									"value": "womens-jewelry-necklaces,womens-jewelry-bracelets"
+								},
+								{
+									"key": "locale",
+									"value": "{{locale}}",
+									"disabled": true
+								},
+								{
+									"key": "levels",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "06b. Shopper Products - Get Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/product/shopper-products/v1/organizations/{{organizationId}}/categories/root?siteId={{site_id}}&levels=2",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"product",
+								"shopper-products",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"categories",
+								"root"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{site_id}}"
+								},
+								{
+									"key": "levels",
+									"value": "2"
+								},
+								{
+									"key": "locale",
+									"value": "{{locale}}",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "07. Shopper Search - Products in Category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "82edce1d-6564-41d8-885a-f6479aac99d9",
+								"exec": [
+									"var hitsArray = pm.response.json().hits;",
+									"var firstHit = hitsArray[0];",
+									"pm.environment.set(\"product_id\", firstHit.representedProduct.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/search/shopper-search/v1/organizations/{{organizationId}}/product-search?siteId={{site_id}}&refine=cgid=womens-jewelry-necklaces",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"search",
+								"shopper-search",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"product-search"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{site_id}}"
+								},
+								{
+									"key": "q",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "refine",
+									"value": "cgid=womens-jewelry-necklaces"
+								},
+								{
+									"key": "locale",
+									"value": "{{locale}}",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "currency",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "08. Shopper Search - List of Products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/product/shopper-products/v1/organizations/{{organizationId}}/products?siteId={{site_id}}&ids=22951021M,25720074M&locale={{locale}}&allImages=false",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"product",
+								"shopper-products",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"products"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{site_id}}"
+								},
+								{
+									"key": "ids",
+									"value": "22951021M,25720074M"
+								},
+								{
+									"key": "locale",
+									"value": "{{locale}}"
+								},
+								{
+									"key": "allImages",
+									"value": "false"
+								},
+								{
+									"key": "currency",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "inventoryIds",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "09. Shopper Products - Get a Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/product/shopper-products/v1/organizations/{{organizationId}}/products/{{product_id}}?siteId={{site_id}}",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"product",
+								"shopper-products",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"products",
+								"{{product_id}}"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{site_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "10a. Shopper Basket - Create Basket",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2abd2615-6659-404c-aacc-0f1e4a42af2c",
+								"exec": [
+									"const responseJSON = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"basketId\",responseJSON.basketId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/checkout/shopper-baskets/v1/organizations/{{organizationId}}/baskets?siteId={{site_id}}",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"checkout",
+								"shopper-baskets",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"baskets"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{site_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "11a. Shopper Basket - Add Items",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"productId\": \"{{product_id}}\",\n    \"quantity\": 1\n  }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/checkout/shopper-baskets/v1/organizations/{{organizationId}}/baskets/{{basketId}}/items?siteId={{site_id}}",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"checkout",
+								"shopper-baskets",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"baskets",
+								"{{basketId}}",
+								"items"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{site_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "12a. Shopper Basket - Add Shipping Method",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e87f7e1b-d087-4ace-973e-eb27af5a6a0a",
+								"exec": [
+									"const responseJSON = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"orderTotal\",responseJSON.orderTotal);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": \"{{shipping_method}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/checkout/shopper-baskets/v1/organizations/{{organizationId}}/baskets/{{basketId}}/shipments/me/shipping-method?siteId={{site_id}}",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"checkout",
+								"shopper-baskets",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"baskets",
+								"{{basketId}}",
+								"shipments",
+								"me",
+								"shipping-method"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{site_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "13a. Shopper Basket - Add Shipping Address",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"address1\": \"{{shipping_address}}\",\n  \"city\": \"{{shipping_city}}\",\n  \"countryCode\": \"{{shipping_country_code}}\",\n  \"firstName\": \"{{shopper_first_name}}\",\n  \"lastName\": \"{{shopper_last_name}}\",\n  \"postalCode\": \"{{shipping_post_code}}\",\n  \"stateCode\": \"{{shipping_state_code}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/checkout/shopper-baskets/v1/organizations/{{organizationId}}/baskets/{{basketId}}/shipments/me/shipping-address?siteId={{site_id}}",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"checkout",
+								"shopper-baskets",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"baskets",
+								"{{basketId}}",
+								"shipments",
+								"me",
+								"shipping-address"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{site_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "14a. Shopper Basket - Add Billing Address",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"address1\": \"{{shipping_address}}\",\n  \"city\": \"{{shipping_city}}\",\n  \"countryCode\": \"{{shipping_country_code}}\",\n  \"firstName\": \"{{shopper_first_name}}\",\n  \"lastName\": \"{{shopper_last_name}}\",\n  \"postalCode\": \"{{shipping_post_code}}\",\n  \"stateCode\": \"{{shipping_state_code}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/checkout/shopper-baskets/v1/organizations/{{organizationId}}/baskets/{{basketId}}/billing-address?siteId={{site_id}}",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"checkout",
+								"shopper-baskets",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"baskets",
+								"{{basketId}}",
+								"billing-address"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{site_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "15a. Shopper Basket - Add Cust Info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"{{shopper_email}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/checkout/shopper-baskets/v1/organizations/{{organizationId}}/baskets/{{basketId}}/customer?siteId={{site_id}}",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"checkout",
+								"shopper-baskets",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"baskets",
+								"{{basketId}}",
+								"customer"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{site_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "16a. Shopper Basket - Add Payment Instruments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"amount\": {{orderTotal}},\n  \"paymentCard\": {\n    \"cardType\": \"Visa\",\n    \"creditCardToken\": \"undefined\",\n    \"expirationMonth\": 2,\n    \"expirationYear\": 2027,\n    \"holder\": \"{{shopper_first_name}} {{shopper_last_name}}\",\n    \"maskedNumber\": \"************1111\"\n  },\n  \"paymentMethodId\": \"CREDIT_CARD\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/checkout/shopper-baskets/v1/organizations/{{organizationId}}/baskets/{{basketId}}/payment-instruments?siteId={{site_id}}",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"checkout",
+								"shopper-baskets",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"baskets",
+								"{{basketId}}",
+								"payment-instruments"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{site_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "10b. Shopper Basket - Prepopulate Basket",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2abd2615-6659-404c-aacc-0f1e4a42af2c",
+								"exec": [
+									"const responseJSON = JSON.parse(responseBody);",
+									"if (responseJSON.basketId) {",
+									"    postman.setEnvironmentVariable(\"basketId\",responseJSON.basketId);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5e3275fc-206d-403a-b1de-725b159fb82b",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"billingAddress\": {\n    \"address1\": \"3 avenue Octave Gréard\",\n    \"city\": \"Paris\",\n    \"countryCode\": \"FR\",\n    \"firstName\": \"Emma\",\n    \"fullName\": \"Emma Berry\",\n    \"lastName\": \"Berry\",\n    \"postalCode\": \"75007\",\n    \"stateCode\": \"Ile de France\"\n  },\n  \"channelType\": \"storefront\",\n  \"currency\": \"EUR\",\n  \"customerInfo\": {\n    \"email\": \"emma.berry@gmail.com\"\n  },\n  \"paymentInstruments\": [\n    {\n      \"amount\": 1.0,\n      \"paymentCard\": {\n        \"cardType\": \"Visa\",\n        \"expirationMonth\": 2,\n        \"expirationYear\": 2027,\n        \"holder\": \"Emma Berry\",\n        \"maskedNumber\": \"************1111\",\n        \"numberLastDigits\": \"1111\"\n      },\n      \"paymentMethodId\": \"CREDIT_CARD\"\n    }\n  ],\n  \"productItems\": [\n    {\n      \"productId\": \"799927757387M\",\n      \"quantity\": 1,\n      \"shipmentId\": \"me\"\n    }\n  ],\n  \"shipments\": [\n    {\n      \"shipmentId\": \"me\",\n      \"shippingAddress\": {\n        \"address1\": \"3 avenue Octave Gréard\",\n        \"city\": \"Paris\",\n        \"countryCode\": \"FR\",\n        \"firstName\": \"Emma\",\n        \"fullName\": \"Emma Berry\",\n        \"lastName\": \"Berry\",\n        \"postalCode\": \"75007\",\n        \"stateCode\": \"Ile de France\"\n      },\n      \"shippingMethod\": {\n        \"id\": \"EUR001\"\n      }\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/checkout/shopper-baskets/v1/organizations/{{organizationId}}/baskets?siteId={{site_id}}",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"checkout",
+								"shopper-baskets",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"baskets"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{site_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "17. Shopper Basket - Create Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2abd2615-6659-404c-aacc-0f1e4a42af2c",
+								"exec": [
+									"const responseJSON = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"orderNo\",responseJSON.orderNo);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"basketId\": \"{{basketId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/checkout/shopper-orders/v1/organizations/{{organizationId}}/orders?siteId={{site_id}}",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"checkout",
+								"shopper-orders",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{site_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "18. AccessToken (account.demandware.com) for Commerce APIs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1e62b2e9-1d8d-4162-98b4-561e36be2824",
+								"exec": [
+									"var foo = pm.response.json().access_token;",
+									"pm.environment.set(\"access_token\", foo);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{clientId}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{clientSecret}}",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhOmFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYQ=="
+							}
+						],
+						"url": {
+							"raw": "https://account.demandware.com/dw/oauth2/access_token?grant_type=client_credentials&scope=SALESFORCE_COMMERCE_API:{{tenantId}} {{access_token_scopes}}",
+							"protocol": "https",
+							"host": [
+								"account",
+								"demandware",
+								"com"
+							],
+							"path": [
+								"dw",
+								"oauth2",
+								"access_token"
+							],
+							"query": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials"
+								},
+								{
+									"key": "scope",
+									"value": "SALESFORCE_COMMERCE_API:{{tenantId}} {{access_token_scopes}}"
+								}
+							]
+						},
+						"description": "AccessToken (account.demandware.com)"
+					},
+					"response": []
+				},
+				{
+					"name": "19. Orders - Set Payment Status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2abd2615-6659-404c-aacc-0f1e4a42af2c",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"paid\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/checkout/orders/v1/organizations/{{organizationId}}/orders/{{orderNo}}/payment-status?siteId={{site_id}}",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"checkout",
+								"orders",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"orders",
+								"{{orderNo}}",
+								"payment-status"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{site_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "20. Orders - Set Order Status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2abd2615-6659-404c-aacc-0f1e4a42af2c",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"new\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/checkout/orders/v1/organizations/{{organizationId}}/orders/{{orderNo}}/status?siteId={{site_id}}",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"checkout",
+								"orders",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"orders",
+								"{{orderNo}}",
+								"status"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{site_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "99. Shopper Customer - Get Cust Basket",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2abd2615-6659-404c-aacc-0f1e4a42af2c",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/customer/shopper-customers/v1/organizations/{{organizationId}}/customers/{{customerId}}/baskets?siteId={{site_id}}",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"customer",
+								"shopper-customers",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"customers",
+								"{{customerId}}",
+								"baskets"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{site_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "99. Shopper Order - Get Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2abd2615-6659-404c-aacc-0f1e4a42af2c",
+								"exec": [
+									"const responseJSON = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"orderNo\",responseJSON.orderNo);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/checkout/shopper-orders/v1/organizations/{{organizationId}}/orders/{{orderNo}}?siteId={{site_id}}",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"checkout",
+								"shopper-orders",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"orders",
+								"{{orderNo}}"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{site_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "99. Shopper Basket - Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/checkout/shopper-baskets/v1/organizations/{{organizationId}}/baskets/{{basketId}}?siteId={{site_id}}",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"checkout",
+								"shopper-baskets",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"baskets",
+								"{{basketId}}"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{site_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "99. Shopper Customer - Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2abd2615-6659-404c-aacc-0f1e4a42af2c",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/customer/shopper-customers/v1/organizations/{{organizationId}}/customers/actions/logout?siteId={{site_id}}",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"customer",
+								"shopper-customers",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"customers",
+								"actions",
+								"logout"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{site_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Data Endpoints",
+			"item": [
+				{
+					"name": "Catalogs - Get Catalogs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2abd2615-6659-404c-aacc-0f1e4a42af2c",
+								"exec": [
+									"const responseJSON = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"basketId\",responseJSON.basketId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/product/catalogs/v1/organizations/{{organizationId}}/catalogs",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"product",
+								"catalogs",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"catalogs"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
