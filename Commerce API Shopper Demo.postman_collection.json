@@ -442,9 +442,10 @@
 							"script": {
 								"id": "f66dfd67-55d1-40dc-b02a-f420674f8e43",
 								"exec": [
-									"var hitsArray = pm.response.json().hits;",
-									"var firstHit = hitsArray[0];",
-									"pm.environment.set(\"product_id\", firstHit.representedProduct.id);"
+									"var response = pm.response.json();",
+									"if (response.hits) {",
+									"    pm.environment.set(\"product_id\", response.hits[0].representedProduct.id);   ",
+									"}"
 								],
 								"type": "text/javascript"
 							}
@@ -641,9 +642,10 @@
 							"script": {
 								"id": "82edce1d-6564-41d8-885a-f6479aac99d9",
 								"exec": [
-									"var hitsArray = pm.response.json().hits;",
-									"var firstHit = hitsArray[0];",
-									"pm.environment.set(\"product_id\", firstHit.representedProduct.id);"
+									"var response = pm.response.json();",
+									"if (response.hits) {",
+									"    pm.environment.set(\"product_id\", response.hits[0].representedProduct.id);   ",
+									"}"
 								],
 								"type": "text/javascript"
 							}
@@ -899,7 +901,7 @@
 					"response": []
 				},
 				{
-					"name": "11a. Shopper Basket - Add Items",
+					"name": "11a. Shopper Basket - Add Item",
 					"request": {
 						"auth": {
 							"type": "bearer",
