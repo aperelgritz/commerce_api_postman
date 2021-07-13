@@ -25,7 +25,8 @@ Set your own values for the following environment variables:
 - shipping_state_code
 
 You will find your shortCode and organizationId in Business Manager:
-Administration > Salesforce Commerce API Settingscommerce-api-settings
+Administration > Salesforce Commerce API Setting
+
 All other variables are set dynamically when you call the endpoints in order.
  
 
