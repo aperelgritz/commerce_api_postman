@@ -9,7 +9,7 @@ Set your own values for the following environment variables:
 - shortCode
 - organizationId (note: must be lowercase)
 - clientId
-- clientSecret
+- clientSecret (only required for Data endpoints)
 - tenantId
 - locale
 - shopper_login
